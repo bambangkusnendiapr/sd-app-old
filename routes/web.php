@@ -14,16 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/sweet', [App\Http\Controllers\HomeController::class, 'sweet'])->name('sweet');
-
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('students', \App\Http\Livewire\DataStudents::class)->name('students');
 
 });
